@@ -1,0 +1,23 @@
+#XXXXXXXXXXX cpp XXXXXXXXXXX
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+
+#XXXXXXXXXXX osx XXXXXXXXXXX
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+.DS_Store
+
+
+#XXXXXXXXXXX of XXXXXXXXXXX
+
+./build
+*.app
