@@ -8,7 +8,6 @@ obj/
 openFrameworks.a
 openFrameworksDebug.a
 openFrameworksUniversal.a
-*.app/
 
 #codeblocks files
 apps/*/*/*.layout
