@@ -294,6 +294,7 @@ void ofxTSPSPeopleTracker::trackPeople()
 				oscClient.personMoved(p, centroid, width, height, p_Settings->bSendOscContours);
 			}
 			oscClient.personMoved(p, centroid, width, height, p_Settings->bSendOscContours);
+			oscClient.legacy(p, centroid, width, height);
 
 		}
 		

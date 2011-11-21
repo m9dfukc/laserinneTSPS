@@ -231,6 +231,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -276,8 +278,10 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>5</integer>
-									<integer>3</integer>
+									<integer>25</integer>
+									<integer>21</integer>
+									<integer>20</integer>
+									<integer>8</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -312,14 +316,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>laserinneApp.cpp</string>
+								<string>ofxTSPSOscSender.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +329,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>laserinneApp.cpp</string>
+										<string>ofxTSPSOscSender.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>E17722FA1462F3E800AA682C</string>
+										<string>E17723391464887600AA682C</string>
 										<key>history</key>
 										<array>
 											<string>E1AB847F13E86163002EDDF9</string>
@@ -390,7 +392,6 @@
 											<string>E1AD6179140ED2DF004E1235</string>
 											<string>E1AD618E140ED5A3004E1235</string>
 											<string>E1E95DC01411463D00A67AA9</string>
-											<string>E1E95DC21411463D00A67AA9</string>
 											<string>E1E95DC31411463D00A67AA9</string>
 											<string>E1E95DC71411463D00A67AA9</string>
 											<string>E1E95DC91411463D00A67AA9</string>
@@ -410,8 +411,9 @@
 											<string>E1AF3800144DBB4700AE7145</string>
 											<string>E1AF3801144DBB4700AE7145</string>
 											<string>E1541EFD144F940A0014EBF3</string>
-											<string>E1541EFE144F940A0014EBF3</string>
-											<string>E1541F00144F940A0014EBF3</string>
+											<string>E17723001462F48900AA682C</string>
+											<string>E17723371464887600AA682C</string>
+											<string>E17723381464887600AA682C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -469,9 +471,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>E17722FB1462F3E800AA682C</string>
+				<string>E1772325146300ED00AA682C</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>E17722FC1462F3E800AA682C</string>
+				<string>E1772326146300ED00AA682C</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -609,8 +611,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>E1772330146300ED00AA682C</string>
+		<string>E1772331146300ED00AA682C</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>E1A5304613E743B400FFBC0D</string>
-		<string>/Users/andreas/Desktop/Development/of_preRelease_v007_osx/apps/applications/laserinneTSPS/laserinneTSPS.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>59 117 1381 911 0 0 1680 1028 </string>
@@ -690,7 +695,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>E1A5304613E743B400FFBC0D</string>
-				<string>E17722FD1462F3E800AA682C</string>
+				<string>E1772327146300ED00AA682C</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -786,10 +791,10 @@
 									<key>Frame</key>
 									<string>{{316, 0}, {378, 203}}</string>
 									<key>RubberWindowFrame</key>
-									<string>1012 399 694 422 0 0 1920 1058 </string>
+									<string>814 381 694 422 0 0 1680 1028 </string>
 								</dict>
 								<key>RubberWindowFrame</key>
-								<string>1012 399 694 422 0 0 1920 1058 </string>
+								<string>814 381 694 422 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
@@ -812,18 +817,18 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>E1541F01144F940A0014EBF3</string>
+				<string>E1772328146300ED00AA682C</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>E1541F02144F940A0014EBF3</string>
-				<string>E1541F03144F940A0014EBF3</string>
-				<string>E1541F04144F940A0014EBF3</string>
-				<string>E1541F05144F940A0014EBF3</string>
-				<string>E1541F06144F940A0014EBF3</string>
+				<string>E1772329146300ED00AA682C</string>
+				<string>E177232A146300ED00AA682C</string>
+				<string>E177232B146300ED00AA682C</string>
+				<string>E177232C146300ED00AA682C</string>
+				<string>E177232D146300ED00AA682C</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
 			<key>WindowString</key>
-			<string>1012 399 694 422 0 0 1920 1058 </string>
+			<string>814 381 694 422 0 0 1680 1028 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
@@ -949,7 +954,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {589, 470}}</string>
 								<key>RubberWindowFrame</key>
-								<string>1258 378 589 511 0 0 1920 1058 </string>
+								<string>1031 358 589 511 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -972,13 +977,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>E1541F07144F940A0014EBF3</string>
+				<string>E177232E146300ED00AA682C</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>1258 378 589 511 0 0 1920 1058 </string>
+			<string>1031 358 589 511 0 0 1680 1028 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>

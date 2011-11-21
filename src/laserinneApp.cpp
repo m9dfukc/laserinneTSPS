@@ -27,7 +27,7 @@ void laserinneApp::setup(){
 	camWidth = pointGrey.getWidth();
 	camHeight = pointGrey.getHeight();
 #else
-	vidPlayer.loadMovie("testmovie/s3.mov");
+	vidPlayer.loadMovie("testmovie/800x600.mov");
 	vidPlayer.play();
 	
 	camWidth = vidPlayer.width;
@@ -42,23 +42,8 @@ void laserinneApp::setup(){
 	peopleTracker.setup(camWidth, camHeight);
 	peopleTracker.loadFont("fonts/times.ttf", 10);
 	peopleTracker.setListener( this );
-	
- 
 	peopleTracker.setActiveDimensions( ofGetWidth(), ofGetHeight() - 68 );
-
-    
-	personEnteredImage.loadImage("graphic/triggers/PersonEntered_Active.png");
-	personUpdatedImage.loadImage("graphic/triggers/PersonUpdated_Active.png");
-	personLeftImage.loadImage("graphic/triggers/PersonLeft_Active.png");
-	statusBar.loadImage("graphic/bottomBar.png");
-	timesBoldItalic.loadFont("fonts/timesbi.ttf", 17);
-    
-
-	drawStatus[0] = 0;
-	drawStatus[1] = 0;
-	drawStatus[2] = 0;
-	
-	
+	timesBoldItalic.loadFont("fonts/timesbi.ttf", 17);	
 }
 
 //--------------------------------------------------------------
@@ -83,10 +68,12 @@ void laserinneApp::update(){
 		peopleTracker.update(colorImg);
 		#endif
 
+		/*
 		//iterate through the people
 		for(int i = 0; i < peopleTracker.totalPeople(); i++){
 			ofxTSPSPerson* p = peopleTracker.personAtIndex(i);
 		}
+		 */
 		
 	}
 }
@@ -134,28 +121,6 @@ void laserinneApp::draw(){
 	peopleTracker.draw();
 
 	ofPopStyle();
-
-	//draw status bar stuff
-	/*
-	statusBar.draw(0,700);//ofGetHeight()-statusBar.height);
-	if (drawStatus[0] > 0){
-		drawStatus[0]--;
-		personEnteredImage.draw(397,728);
-	}
-	if (drawStatus[1] > 0){
-		drawStatus[1]--;
-		personUpdatedImage.draw(533,728);
-	}
-	if (drawStatus[2] > 0){
-		drawStatus[2]--;
-		personLeftImage.draw(666,728);
-	}
-
-	ofSetColor(0, 169, 157);
-	char numPeople[1024];
-	sprintf(numPeople, "%i", peopleTracker.totalPeople());
-	timesBoldItalic.drawString(numPeople,350,740);
-	*/
 }
 
 

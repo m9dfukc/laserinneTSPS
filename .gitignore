@@ -18,6 +18,5 @@
 
 
 #XXXXXXXXXXX of XXXXXXXXXXX
-
+build/
 ./build
-*.app

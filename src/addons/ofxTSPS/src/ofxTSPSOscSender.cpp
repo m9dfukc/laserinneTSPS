@@ -188,6 +188,25 @@ void ofxTSPSOscSender::personWillLeave ( ofxTSPSPerson * p, ofPoint centroid, in
 	send(m);	
 };
 
+void ofxTSPSOscSender::legacy( ofxTSPSPerson * p, ofPoint centroid, int cameraWidth, int cameraHeight ) 
+{
+	ofxOscBundle b;
+	ofxOscMessage m;
+	m.setAddress("/tracking/");
+	m.addFloatArg(p->pid);
+	m.addFloatArg(centroid.x/2);
+	m.addFloatArg(centroid.y/2);
+	ofRectangle boundingRect = p->getBoundingRectNormalized(cameraWidth,cameraHeight);
+	m.addFloatArg(boundingRect.width);
+	m.addFloatArg(boundingRect.height);
+	m.addFloatArg(p->opticalFlowVectorAccumulation.x/2);
+	m.addFloatArg(p->opticalFlowVectorAccumulation.y/2);
+	m.addFloatArg(p->age);
+	m.addFloatArg((int)ofGetSystemTime());
+	
+	send(m);
+}
+
 /*
  
  BUNDLE SENDING // for when there's a good implementation of bundles in flash + processing
