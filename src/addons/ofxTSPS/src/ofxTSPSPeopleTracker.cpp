@@ -247,7 +247,7 @@ void ofxTSPSPeopleTracker::trackPeople()
 	
 	scene.percentCovered = 0; 
 	
-	for(int i = 0; i < persistentTracker.blobs.size(); i++){
+	for(int i = 0; i < persistentTracker.blobs.size() && persistentTracker.blobs.size() < 50; i++){
 		ofxCvTrackedBlob blob = persistentTracker.blobs[i];
 		ofxTSPSPerson* p = getTrackedPerson(blob.id);
 		//somehow we are not tracking this person, safeguard (shouldn't happen)

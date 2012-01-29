@@ -12,9 +12,9 @@ public:
 //--------------------------------------------------------------
 void laserinneApp::setup(){
 	ofDisableSmoothing();
-	ofSetVerticalSync(true);
+	ofSetVerticalSync(false);
 	ofSetFrameRate(120);
-	ofBackground(223, 212, 190);
+	ofBackground(190, 190, 190);
 	
 	camWidth = 640;
 	camHeight = 480;
@@ -22,12 +22,13 @@ void laserinneApp::setup(){
 #ifdef _USE_LIVE_VIDEO
 	pointGrey.setup();
 	pointGrey.set1394b(true);
-	pointGrey.setSize(1024,768);
+	pointGrey.setSize(640,480);
 	
 	camWidth = pointGrey.getWidth();
 	camHeight = pointGrey.getHeight();
+	std::cout << "Camera width: " << camWidth << " height: " << camHeight << std::endl;
 #else
-	vidPlayer.loadMovie("testmovie/800x600.mov");
+	vidPlayer.loadMovie("testmovie/640x480.mov");
 	vidPlayer.play();
 	
 	camWidth = vidPlayer.width;
@@ -51,6 +52,12 @@ void laserinneApp::update(){
 
 	bool bNewFrame = false;
 	
+
+	
+	
+	
+	double t = (double)cv::getTickCount(); // DEBUG!
+
 	#ifdef _USE_LIVE_VIDEO
 	bNewFrame = pointGrey.grabVideo(curFrame);
 	curFrame.update();
@@ -58,6 +65,13 @@ void laserinneApp::update(){
 	vidPlayer.idleMovie();
 	bNewFrame = vidPlayer.isFrameNew();
 	#endif
+	
+	t = ((double)cv::getTickCount() - t)/cv::getTickFrequency(); // DEBUG!
+	//cout << "Video took " << t << endl; // DEBUG
+	
+
+	
+	
 	
 	if(bNewFrame) {
 		#ifdef _USE_LIVE_VIDEO
@@ -76,6 +90,13 @@ void laserinneApp::update(){
 		 */
 		
 	}
+	
+	
+	t = ((double)cv::getTickCount() - t)/cv::getTickFrequency(); // DEBUG!
+	//cout << "People tracker took " << t << endl; // DEBUG
+	
+	
+	
 }
 
 //delegate methods for people entering and exiting
@@ -117,9 +138,20 @@ void laserinneApp::draw(){
 	ofSetHexColor(0xffffff);
 	
 	ofPushStyle();
+
+	double t = (double)cv::getTickCount(); // DEBUG!
+
+	
+	
 	
 	peopleTracker.draw();
 
+	
+	
+	t = ((double)cv::getTickCount() - t)/cv::getTickFrequency(); // DEBUG!
+	//cout << "People tracker draw took " << t << endl; // DEBUG
+	
+	
 	ofPopStyle();
 }
 

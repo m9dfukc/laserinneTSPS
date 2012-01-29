@@ -7,7 +7,7 @@
 #include "ofxTSPS.h"
 #include "ofxLibdc.h"
 
-//#define _USE_LIVE_VIDEO		// uncomment this to use a normal OF camera
+#define _USE_LIVE_VIDEO		// uncomment this to use a normal OF camera
 
 class  laserinneApp: public ofBaseApp, public ofxPersonListener {
 

@@ -202,7 +202,7 @@ void ofxTSPSOscSender::legacy( ofxTSPSPerson * p, ofPoint centroid, int cameraWi
 	m.addFloatArg(p->opticalFlowVectorAccumulation.x/2);
 	m.addFloatArg(p->opticalFlowVectorAccumulation.y/2);
 	m.addFloatArg(p->age);
-	m.addFloatArg((int)ofGetSystemTime());
+	m.addFloatArg(ofGetElapsedTimef());
 		
 	send(m);
 }
