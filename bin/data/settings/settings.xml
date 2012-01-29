@@ -1,11 +1,11 @@
-<QUAD_0_X>0.000000</QUAD_0_X>
-<QUAD_0_Y>0.000000</QUAD_0_Y>
-<QUAD_1_X>1.000000</QUAD_1_X>
-<QUAD_1_Y>0.000000</QUAD_1_Y>
+<QUAD_0_X>0.332831</QUAD_0_X>
+<QUAD_0_Y>0.154618</QUAD_0_Y>
+<QUAD_1_X>0.750000</QUAD_1_X>
+<QUAD_1_Y>0.158635</QUAD_1_Y>
 <QUAD_2_X>1.000000</QUAD_2_X>
-<QUAD_2_Y>1.000000</QUAD_2_Y>
+<QUAD_2_Y>0.863454</QUAD_2_Y>
 <QUAD_3_X>0.000000</QUAD_3_X>
-<QUAD_3_Y>1.000000</QUAD_3_Y>
+<QUAD_3_Y>0.871486</QUAD_3_Y>
 <USE_AMPLIFICATION>
     <val_0>0.000000</val_0>
 </USE_AMPLIFICATION>
@@ -22,13 +22,13 @@
     <val_0>944.444397</val_0>
 </RELEARN_BACKGROUND>
 <THRESHOLD>
-    <val_0>12.750000</val_0>
+    <val_0>26.916666</val_0>
 </THRESHOLD>
 <BLOB_TYPE>
     <val_0>1.000000</val_0>
 </BLOB_TYPE>
 <USE_HIGHPASS>
-    <val_0>0.000000</val_0>
+    <val_0>1.000000</val_0>
 </USE_HIGHPASS>
 <HIGHPASS_BLUR>
     <val_0>41.905556</val_0>
@@ -40,13 +40,13 @@
     <val_0>1.000000</val_0>
 </USE_SMOOTHING>
 <SMOOTH_AMOUNT>
-    <val_0>2.000000</val_0>
+    <val_0>1.416667</val_0>
 </SMOOTH_AMOUNT>
 <MIN_BLOB>
-    <val_0>0.016765</val_0>
+    <val_0>0.005655</val_0>
 </MIN_BLOB>
 <MAX_BLOB>
-    <val_0>5.556640</val_0>
+    <val_0>3.890097</val_0>
 </MAX_BLOB>
 <FIND_HOLES>
     <val_0>0.000000</val_0>
@@ -73,7 +73,7 @@
     <val_0>1.000000</val_0>
 </SEND_OSC>
 <OSC_HOST>
-    <val_0>239.0.0.0</val_0>
+    <val_0>239.0.0.1</val_0>
 </OSC_HOST>
 <OSC_PORT>
     <val_0>9999</val_0>

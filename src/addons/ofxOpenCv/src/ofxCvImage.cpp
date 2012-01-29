@@ -371,8 +371,7 @@ void ofxCvImage::draw( float x, float y, float w, float h ) {
             tempImg = cvCreateImage( cvSize((int)w, (int)h), ipldepth, iplchannels );
             cvResize( cvImage, tempImg, CV_INTER_NN );
             cvFlip( tempImg, tempImg, 0 );
-            glDrawPixels( tempImg->width, tempImg->height ,
-                          glchannels, gldepth, tempImg->imageData );
+            glDrawPixels( tempImg->width, tempImg->height , glchannels, gldepth, tempImg->imageData );
             cvReleaseImage( &tempImg );
         #endif
     }

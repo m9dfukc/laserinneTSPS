@@ -45,11 +45,11 @@ void ofxTSPSPerson::update(ofxCvBlob blob, bool dampen)
 
 ofRectangle ofxTSPSPerson::getBoundingRectNormalized(float videoWidth, float videoHeight)
 {
-		return ofRectangle(ofMap( boundingRect.x/videoWidth, 0.0, 1.0, -1.0, 1.0 ),
-						   ofMap( boundingRect.y/videoHeight, 0.0, 1.0, -1.0, 1.0 ),
-						   ofMap( boundingRect.width/videoWidth, 0.0, 1.0, -1.0, 1.0 ),
-						   ofMap( boundingRect.height/videoHeight, 0.0, 1.0, -1.0, 1.0 )
-						   );
+	return ofRectangle( ofNormalize( boundingRect.x, 0.0, videoWidth),
+						ofNormalize( boundingRect.y, 0.0, videoHeight),
+						ofNormalize( boundingRect.width, 0.0, videoWidth),
+						ofNormalize( boundingRect.height, 0.0, videoHeight)
+					    );
 }
 
 

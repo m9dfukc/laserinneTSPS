@@ -62,7 +62,7 @@ void ofxTSPSPeopleTracker::setup(int w, int h)
 	bgView.setImage(grayBg);
 	bgView.setTitle("Background Reference View", "Background");
 	bgView.setColor(213,105,68);
-		
+	
 	processedView.setImage(grayDiff);
 	processedView.setTitle("Differenced View", "Differencing");
 	processedView.setColor(113,171,154);
@@ -121,18 +121,18 @@ void ofxTSPSPeopleTracker::update(ofxCvGrayscaleImage image)
 
 void ofxTSPSPeopleTracker::updateSettings()
 {
-
+	
 	//check to enable OSC
 	if (p_Settings->bSendOsc && !bOscEnabled) setupOsc(p_Settings->oscHost, p_Settings->oscPort);
 	else if (!p_Settings->bSendOsc) bOscEnabled = false;
-
+	
 	//check to enable TCP
 	if (p_Settings->bSendTcp && !bTcpEnabled) setupTcp(p_Settings->tcpPort);
 	else if (!p_Settings->bSendTcp) bTcpEnabled = false;
 	
 	//switch camera view if new panel is selected
 	if (p_Settings->currentPanel != p_Settings->lastCurrentPanel) setActiveView(p_Settings->currentPanel + 1);
-
+	
 	// ZACK BOKA: Set the current view within the gui so the image can only be warped when in Camera View
 	if (cameraView.isActive()) {
 		gui.changeGuiCameraView(true);
@@ -164,9 +164,9 @@ void ofxTSPSPeopleTracker::trackPeople()
 	
 	
 	/*
-	grayImageWarped.warpIntoMe(grayImage, p_Settings->quadWarpScaled, p_Settings->quadWarpOriginal);
-	grayDiff = grayImageWarped;
-	*/
+	 grayImageWarped.warpIntoMe(grayImage, p_Settings->quadWarpScaled, p_Settings->quadWarpOriginal);
+	 grayDiff = grayImageWarped;
+	 */
 	
 	grayDiff.getQuadSubImage(grayImage.getPixels(), grayDiff.getPixels(), 
 							 grayImage.getWidth(), grayImage.getHeight(),
@@ -178,7 +178,7 @@ void ofxTSPSPeopleTracker::trackPeople()
 	/* mask the image with the drawn mask */
 	gui.maskImage( &grayImageWarped );
 	//grayImageWarped.flagImageChanged();
-	 
+	
 	//amplify (see cpuimagefilter class)
 	if(p_Settings->bAmplify){
 		grayDiff.amplify(grayDiff, p_Settings->highpassAmp/15.0f);
@@ -202,7 +202,7 @@ void ofxTSPSPeopleTracker::trackPeople()
 		//cvConvertScale( floatBgImg.getCvImage(), grayBg.getCvImage(), 255.0f/65535.0f, 0 );       
 		//grayBg.flagImageChanged();			
 	}
-
+	
 	if(p_Settings->trackType == TRACK_ABSOLUTE){
 		grayDiff.absDiff(grayBg, grayImageWarped);
 	}
@@ -220,7 +220,7 @@ void ofxTSPSPeopleTracker::trackPeople()
 		}
 		grayDiff.flagImageChanged();
 	}
-
+	
 	//-----------------------
 	// IMAGE TREATMENT
 	//-----------------------
@@ -241,7 +241,7 @@ void ofxTSPSPeopleTracker::trackPeople()
 	//-----------------------
 	// TRACKING
 	//-----------------------	
-
+	
 	contourFinder.findContours(grayDiff, p_Settings->minBlob*width*height, p_Settings->maxBlob*width*height, 50, p_Settings->bFindHoles);
 	persistentTracker.trackBlobs(contourFinder.blobs);
 	
@@ -260,7 +260,8 @@ void ofxTSPSPeopleTracker::trackPeople()
 		
 		//update this person with new blob info
 		p->update(blob, p_Settings->bCentroidDampen);
-
+		
+		/*
 		//simplify blob for communication
 		contourAnalysis.simplify(p->contour, p->simpleContour, 2.0f);
 		float simplifyAmount = 2.5f;
@@ -273,6 +274,7 @@ void ofxTSPSPeopleTracker::trackPeople()
 			p->simpleContour[i].x = ofMap( p->simpleContour[i].x / width, 0.0, 1.0, -1.0, 1.0 );
 			p->simpleContour[i].y = ofMap( p->simpleContour[i].y / height, 0.0, 1.0, -1.0, 1.0 );
 		}
+		*/
 		
 		if(eventListener != NULL){
 			if( p->velocity.x != 0 || p->velocity.y != 0){
@@ -280,22 +282,24 @@ void ofxTSPSPeopleTracker::trackPeople()
 			}
 			eventListener->personUpdated(p, &scene);
 		}
+		 
 	}
 	
+		
 	//normalize it
 	scene.percentCovered /= width*height;
 	
 	if (bOscEnabled){
 		for (int i = 0; i < trackedPeople.size(); i++){
 			ofxTSPSPerson* p = trackedPeople[i];
-
+			
 			ofPoint centroid = p->getCentroidNormalized(width, height);
 			if( p->velocity.x != 0 || p->velocity.y != 0){
 				oscClient.personMoved(p, centroid, width, height, p_Settings->bSendOscContours);
 			}
 			oscClient.personMoved(p, centroid, width, height, p_Settings->bSendOscContours);
 			oscClient.legacy(p, centroid, width, height);
-
+			
 		}
 		
 		oscClient.ip = p_Settings->oscHost;
@@ -314,13 +318,13 @@ void ofxTSPSPeopleTracker::trackPeople()
 		tcpClient.update();
 		tcpClient.send();
 	}
-	 
+	
 	//update views
 	if ( p_Settings->bInputIsColor ) 
 		cameraView.update(colorImage);
 	else 
 		cameraView.update(grayImage);
-		
+	
 	if (p_Settings->bAdjustedViewInColor) {
 		adjustedView.update(colorImageWarped);
 	} else {
@@ -411,41 +415,41 @@ void ofxTSPSPeopleTracker::draw(int x, int y)
 void ofxTSPSPeopleTracker::draw(int x, int y, int mode)
 {
 	ofPushMatrix();
-		ofTranslate(x, y, 0);
-		// draw the incoming, the grayscale, the bg and the thresholded difference
-		ofSetHexColor(0xffffff);
+	ofTranslate(x, y, 0);
+	// draw the incoming, the grayscale, the bg and the thresholded difference
+	ofSetHexColor(0xffffff);
 	
-		//draw large image
-		if (activeViewIndex ==  CAMERA_SOURCE_VIEW){
-			cameraView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);		
-			gui.drawQuadGui( activeView.x, activeView.y, activeView.width, activeView.height );
-		} else if ( activeViewIndex == ADJUSTED_CAMERA_VIEW){
-			adjustedView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);	
-			gui.drawMaskGui( activeView.x, activeView.y, activeView.width, activeView.height );
-		} else if ( activeViewIndex == REFERENCE_BACKGROUND_VIEW){
-			bgView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);			
-		} else if ( activeViewIndex == PROCESSED_VIEW){ 
-			processedView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);
-		} else if ( activeViewIndex == DATA_VIEW ){
-			ofPushMatrix();
-				ofTranslate(activeView.x, activeView.y);
-				drawBlobs(activeView.width, activeView.height);
-			ofPopMatrix();
-			dataView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);
-		}
-		
-		//draw all images small
-		cameraView.draw();
-		adjustedView.draw();
-		bgView.draw();
-		processedView.draw();
-		dataView.draw();	
-		
+	//draw large image
+	if (activeViewIndex ==  CAMERA_SOURCE_VIEW){
+		cameraView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);		
+		gui.drawQuadGui( activeView.x, activeView.y, activeView.width, activeView.height );
+	} else if ( activeViewIndex == ADJUSTED_CAMERA_VIEW){
+		adjustedView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);	
+		gui.drawMaskGui( activeView.x, activeView.y, activeView.width, activeView.height );
+	} else if ( activeViewIndex == REFERENCE_BACKGROUND_VIEW){
+		bgView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);			
+	} else if ( activeViewIndex == PROCESSED_VIEW){ 
+		processedView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);
+	} else if ( activeViewIndex == DATA_VIEW ){
 		ofPushMatrix();
-			ofTranslate(dataView.x, dataView.y);
-			drawBlobs(dataView.width, dataView.height);
+		ofTranslate(activeView.x, activeView.y);
+		drawBlobs(activeView.width, activeView.height);
 		ofPopMatrix();
-		
+		dataView.drawLarge(activeView.x, activeView.y, activeView.width, activeView.height);
+	}
+	
+	//draw all images small
+	cameraView.draw();
+	adjustedView.draw();
+	bgView.draw();
+	processedView.draw();
+	dataView.draw();	
+	
+	ofPushMatrix();
+	ofTranslate(dataView.x, dataView.y);
+	drawBlobs(dataView.width, dataView.height);
+	ofPopMatrix();
+	
 	ofPopMatrix();
 	
 	//draw framerate in a box
@@ -499,7 +503,7 @@ void ofxTSPSPeopleTracker::drawBlobs( float drawWidth, float drawHeight){
 		ofEndShape();
 		ofPopStyle();
 		
-			
+		
 		
 		//draw person
 		ofRect(p->boundingRect.x, p->boundingRect.y, p->boundingRect.width, p->boundingRect.height);
@@ -517,7 +521,7 @@ void ofxTSPSPeopleTracker::drawBlobs( float drawWidth, float drawHeight){
 	ofPopMatrix();
 	ofSetHexColor(0xffffff);				
 }
-	
+
 #pragma mark mouse
 
 void ofxTSPSPeopleTracker::mousePressed( ofMouseEventArgs &e )

@@ -90,7 +90,7 @@ void ofxTSPSOscSender::personEntered ( ofxTSPSPerson * p, ofPoint centroid, int 
 		};
 	}
 	
-	send(m);
+	//send(m);
 };
 
 void ofxTSPSOscSender::personMoved ( ofxTSPSPerson * p, ofPoint centroid, int cameraWidth, int cameraHeight, bool bSendContours ){
@@ -121,7 +121,7 @@ void ofxTSPSOscSender::personMoved ( ofxTSPSPerson * p, ofPoint centroid, int ca
 		};
 	}
 	
-	send(m);
+	//send(m);
 };
 
 void ofxTSPSOscSender::personUpdated ( ofxTSPSPerson * p, ofPoint centroid, int cameraWidth, int cameraHeight, bool bSendContours ){
@@ -152,7 +152,7 @@ void ofxTSPSOscSender::personUpdated ( ofxTSPSPerson * p, ofPoint centroid, int 
 		};
 	}
 	
-	send(m);
+	//send(m);
 };
 
 void ofxTSPSOscSender::personWillLeave ( ofxTSPSPerson * p, ofPoint centroid, int cameraWidth, int cameraHeight, bool bSendContours )
@@ -185,7 +185,7 @@ void ofxTSPSOscSender::personWillLeave ( ofxTSPSPerson * p, ofPoint centroid, in
 		};
 	}
 	
-	send(m);	
+	//send(m);	
 };
 
 void ofxTSPSOscSender::legacy( ofxTSPSPerson * p, ofPoint centroid, int cameraWidth, int cameraHeight ) 
@@ -203,7 +203,7 @@ void ofxTSPSOscSender::legacy( ofxTSPSPerson * p, ofPoint centroid, int cameraWi
 	m.addFloatArg(p->opticalFlowVectorAccumulation.y/2);
 	m.addFloatArg(p->age);
 	m.addFloatArg((int)ofGetSystemTime());
-	
+		
 	send(m);
 }
 
