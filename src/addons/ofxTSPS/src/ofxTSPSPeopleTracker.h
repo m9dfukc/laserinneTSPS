@@ -104,6 +104,7 @@ class ofxTSPSPeopleTracker : public ofxCvBlobListener {
 		void update(ofxCvColorImage image);		//Call with sequential camera images
 		void update(ofxCvGrayscaleImage image); //Call with sequential camera images
 		void mousePressed(ofMouseEventArgs &e);	
+		void exit();
 		
 		//communication
 		
@@ -255,7 +256,6 @@ class ofxTSPSPeopleTracker : public ofxCvBlobListener {
 		bool bTcpEnabled;
 		
 		//gui
-
 		ofxTSPSGuiManager gui;
 		bool guiLoaded;
 		float activeHeight, activeWidth;

@@ -54,6 +54,7 @@ class ofxTSPSGuiManager {
   public:
 	ofxTSPSGuiManager();
 	void setup();
+	void exit();
 	//ofxSimpleGuiToo	gui;
 
 	bool enableGui;

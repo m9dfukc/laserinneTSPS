@@ -92,6 +92,9 @@ public:
 	ofPoint quadWarpScaled[4];
 	ofPoint quadWarpOriginal[4];
 	
+	//masking stuff
+	float maskSize;
+	
 	//xml file
 	vector <string> xmlFiles;
 	string currentXmlFile;

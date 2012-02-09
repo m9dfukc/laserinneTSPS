@@ -28,6 +28,7 @@ public:
 	void maskImage(ofxCvGrayscaleImage* maskMe);
 	bool updateMask(float passedX, float passedY, float offsetX, float offsetY, float scaleWidth, float scaleHeight, bool erase);
 	void clearMask();
+	void setPenDiameter(float diameter);
 	
 	
 	void saveToFile(string filePath);
@@ -63,6 +64,7 @@ protected:
 	//int width, height;
 	bool bAutoSave;
 	int selected;
+	float penDiameter;
 };
 
 

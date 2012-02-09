@@ -40,7 +40,7 @@ class  laserinneApp: public ofBaseApp, public ofxPersonListener {
 		ofxLibdc::Grabber grabber;
 		ofxLibdc::PointGrey pointGrey;	
 #else
-		ofVideoPlayer 		vidPlayer;
+		ofVideoPlayer vidPlayer;
 #endif
 	
 	

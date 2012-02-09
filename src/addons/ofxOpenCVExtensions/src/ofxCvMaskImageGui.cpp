@@ -26,6 +26,7 @@ void ofxCvMaskImageGui::setup(string _quadName, int _width, int _height){
 	bAdjustedView = false;	
 	width = _width;
 	height = _height;
+	penDiameter = 30.0;
 	
 	maskFile.allocate(_width, _height, OF_IMAGE_GRAYSCALE);
 	cvTempImage.allocate( maskFile.getWidth(), maskFile.getHeight() );
@@ -49,6 +50,10 @@ ofxCvGrayscaleImage ofxCvMaskImageGui::getMask() {
 void ofxCvMaskImageGui::clearMask() {
 	cvFillImage( cvMaskImage.getCvImage(), 0.0 );
 }
+
+void ofxCvMaskImageGui::setPenDiameter(float diameter) {
+	penDiameter = diameter;
+}
  
 void ofxCvMaskImageGui::maskImage(ofxCvGrayscaleImage* maskMe) {
 
@@ -61,12 +66,9 @@ void ofxCvMaskImageGui::maskImage(ofxCvGrayscaleImage* maskMe) {
 //----------------------------------------------------
 void ofxCvMaskImageGui::readFromFile(string filePath){
 	
-	xmlFile = filePath + ".xml";
-	imageFile = filePath + ".jpg";
-	
+	imageFile = filePath + ".png";
 	if ( maskFile.loadImage(imageFile) ) maskFile.setImageType(OF_IMAGE_GRAYSCALE);
-	xml.loadFile(xmlFile);
-
+	cvMaskImage.setFromPixels(maskFile.getPixels(), maskFile.getWidth(), maskFile.getHeight());
 	loadSettings();	
 }
 
@@ -79,21 +81,19 @@ void ofxCvMaskImageGui::loadSettings(){
 //----------------------------------------------------
 void ofxCvMaskImageGui::saveToFile(string filePath){
 	string str;
-	
-	xmlFile = filePath + ".xml";
-	imageFile = filePath + ".jpg";
-	xml.saveFile(xmlFile);
-	maskFile.saveImage(filePath);
+	//std::cout << filePath << std::endl;
+	maskFile.setFromPixels(cvMaskImage.getPixels(), cvMaskImage.getWidth(), cvMaskImage.getHeight(), OF_IMAGE_GRAYSCALE);
+	imageFile = filePath + ".png";
+	std::cout << "SAVING MASK " << imageFile << std::endl;
+	maskFile.saveImage(imageFile);
 }		
 
 //----------------------------------------------------
 void ofxCvMaskImageGui::draw(float passedX, float passedY, float scaleWidth, float scaleHeight){
-	//draw(passedX, passedY, scaleWidth, scaleHeight, 255, 255, 255, 1);
 }
 
 //----------------------------------------------------
 void ofxCvMaskImageGui::draw(){
-	//draw(x, y, width*scale.x, height*scale.y, 255, 255, 0, 1);
 }
 
 //----------------------------------------------------
@@ -101,7 +101,6 @@ void ofxCvMaskImageGui::_mousePressed(ofMouseEventArgs &e){
 	if (bAdjustedView) {
 		updateMask(e.x, e.y, x, y, width*scale.x, height*scale.y, (e.button != 0));
 	}
-	//selectPoint(e.x, e.y, x, y, width*scale.y, height*scale.y, 40);
 }
 
 //----------------------------------------------------
@@ -118,24 +117,9 @@ void ofxCvMaskImageGui::_mouseDragged(ofMouseEventArgs &e){
 
 //----------------------------------------------------
 void ofxCvMaskImageGui::_mouseReleased(ofMouseEventArgs &e){
-	/*
-	if (bAutoSave && bAdjustedView){
-		if (xmlFile != "") saveToFile(xmlFile);
-		else saveToFile("guiquad-settings.xml");
-	}
-	 */
 }
 //----------------------------------------------------
 void ofxCvMaskImageGui::onReleaseOutside(int mouseX, int mouseY, int button){
-	/*
-	if (bAutoSave){
-		if (xmlFile != "") {
-			saveToFile(xmlFile);
-		} else {
-			saveToFile("maskiamge-settings.xml");
-		}
-	}
-	 */
 }
 
 //----------------------------------------------------
@@ -162,7 +146,7 @@ bool ofxCvMaskImageGui::updateMask(float passedX, float passedY, float offsetX, 
 	
 	if (px > 0 && px < width && py > 0 && py < height) {  
 		double val = erase ? 0.0 : 255.0;
-		cvCircle( cvMaskImage.getCvImage(), cvPoint(px, py), 30, cvScalarAll(val), -1 );
+		cvCircle( cvMaskImage.getCvImage(), cvPoint(px, py), (int)penDiameter, cvScalarAll(val), -1 );
 		return true;
 	}
 	

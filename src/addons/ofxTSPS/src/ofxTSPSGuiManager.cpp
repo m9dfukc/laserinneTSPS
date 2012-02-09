@@ -113,28 +113,14 @@ void ofxTSPSGuiManager::setup(){
 	// video settings		
 	panel.setWhichPanel("video");	
 	
-	/*
-	//James G: Added video settings
-	guiTypeGroup * videoSettingsGroup = panel.addGroup("video settings");
-	videoSettingsGroup->setBackgroundColor(148,129,85);
-	videoSettingsGroup->setBackgroundSelectColor(148,129,85);
-	videoSettingsGroup->seBaseColor(244,136,136);
-	videoSettingsGroup->setShowText(false);
-	panel.addButton("select video input");
-	 */
 	
 	guiTypeGroup * maskingGroup = panel.addGroup("mask image");
 	maskingGroup->setBackgroundColor(148,129,85);
 	maskingGroup->setBackgroundSelectColor(148,129,85);
 	maskingGroup->seBaseColor(180,87,128);
 	maskingGroup->setShowText(false);
-	panel.addToggle("mask image", "USEMASK", false);
-	panel.addToggle("clear mask", "CLEARMASK", false);
-	vector<string> multimask;
-	multimask.push_back("add to mask");
-	multimask.push_back("erase from mask");
-	panel.addMultiToggle("drawing type :", "DRAW_MASK_TYPE", 0, multimask);
-	panel.addSlider("drawing size :", "DRAW_MASK_PEN_SIZE", .1f, 0.0f, 100.0f, false);
+	panel.addToggle("clear mask", "CLEAR_MASK", false);
+	panel.addSlider("pen size:", "DRAW_MASK_PEN_SIZE", .1f, 0.0f, 100.0f, false);
 	
 
 	guiTypeGroup * amplificationGroup = panel.addGroup("amplification");
@@ -276,6 +262,12 @@ void ofxTSPSGuiManager::setup(){
 	update(nullArgs);
 }
 
+void ofxTSPSGuiManager::exit() 
+{
+	quadGui.exit();
+	maskGui.exit();
+}
+
 void ofxTSPSGuiManager::addSlider(string name, int* value, int min, int max)
 {
 	ofxTSPSGUICustomParam p;
@@ -379,6 +371,14 @@ void ofxTSPSGuiManager::update(ofEventArgs &e)
 	p_Settings->bLearnBackground = panel.getValueB("LEARN_BACKGROUND");
 	if(p_Settings->bLearnBackground){ 
 		panel.setValueB("LEARN_BACKGROUND", false);
+	}
+	
+	p_Settings->maskSize = panel.getValueF("DRAW_MASK_PEN_SIZE");
+	maskGui.setPenDiameter(p_Settings->maskSize);
+	
+	if(panel.getValueB("CLEAR_MASK")) { 
+		maskGui.clearMask();
+		panel.setValueB("CLEAR_MASK", false);
 	}
 	
 	//panel.setValueB("LEARN_BACKGROUND", p_Settings->bLearnBackground);
@@ -548,8 +548,8 @@ void ofxTSPSGuiManager::saveAsEventCatcher( string & buttonName){
 	ofxTSPSSettings *p_Settings;
 	p_Settings = ofxTSPSSettings::getInstance();
 	p_Settings->currentXmlFile = panel.getCurrentXMLFile();
-	quadGui.readFromFile(p_Settings->currentXmlFile);
-	maskGui.readFromFile(p_Settings->currentXmlFile);
+	quadGui.saveToFile(p_Settings->currentXmlFile);
+	maskGui.saveToFile(p_Settings->currentXmlFile);
 };
 
 /***************************************************************

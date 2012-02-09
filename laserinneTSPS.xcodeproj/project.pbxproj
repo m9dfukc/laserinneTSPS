@@ -383,8 +383,6 @@
 		E1AB815613E843FC002EDDF9 /* basler_sff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basler_sff.h; sourceTree = "<group>"; };
 		E1AB815713E843FC002EDDF9 /* pixelink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pixelink.h; sourceTree = "<group>"; };
 		E1AB815913E843FC002EDDF9 /* libdc1394.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libdc1394.a; sourceTree = "<group>"; };
-		E1AB815A13E843FD002EDDF9 /* license.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license.md; sourceTree = "<group>"; };
-		E1AB815B13E843FD002EDDF9 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.md; sourceTree = "<group>"; };
 		E1AB815D13E843FD002EDDF9 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		E1AB815E13E843FD002EDDF9 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		E1AB815F13E843FD002EDDF9 /* Grabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grabber.cpp; sourceTree = "<group>"; };
@@ -1239,8 +1237,6 @@
 			isa = PBXGroup;
 			children = (
 				E1AB814113E843FC002EDDF9 /* libs */,
-				E1AB815A13E843FD002EDDF9 /* license.md */,
-				E1AB815B13E843FD002EDDF9 /* readme.md */,
 				E1AB815C13E843FD002EDDF9 /* src */,
 			);
 			name = ofxLibdc;

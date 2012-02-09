@@ -13,7 +13,7 @@ public:
 void laserinneApp::setup(){
 	ofDisableSmoothing();
 	ofSetVerticalSync(false);
-	ofSetFrameRate(120);
+	ofSetFrameRate(60);
 	ofBackground(190, 190, 190);
 	
 	camWidth = 640;
@@ -21,9 +21,11 @@ void laserinneApp::setup(){
 	
 #ifdef _USE_LIVE_VIDEO
 	pointGrey.setup();
-	pointGrey.set1394b(true);
+	//pointGrey.set1394b(true);
+	pointGrey.setFormat7(true, 1);
 	pointGrey.setSize(640,480);
-	
+	pointGrey.setMaxFramerate();
+
 	camWidth = pointGrey.getWidth();
 	camHeight = pointGrey.getHeight();
 	std::cout << "Camera width: " << camWidth << " height: " << camHeight << std::endl;
@@ -51,12 +53,6 @@ void laserinneApp::setup(){
 void laserinneApp::update(){
 
 	bool bNewFrame = false;
-	
-
-	
-	
-	
-	double t = (double)cv::getTickCount(); // DEBUG!
 
 	#ifdef _USE_LIVE_VIDEO
 	bNewFrame = pointGrey.grabVideo(curFrame);
@@ -66,13 +62,6 @@ void laserinneApp::update(){
 	bNewFrame = vidPlayer.isFrameNew();
 	#endif
 	
-	t = ((double)cv::getTickCount() - t)/cv::getTickFrequency(); // DEBUG!
-	//cout << "Video took " << t << endl; // DEBUG
-	
-
-	
-	
-	
 	if(bNewFrame) {
 		#ifdef _USE_LIVE_VIDEO
 		grayImg.setFromPixels(curFrame.getPixels(), camWidth, camHeight);
@@ -81,22 +70,7 @@ void laserinneApp::update(){
 		colorImg.setFromPixels(vidPlayer.getPixels(), camWidth, camHeight);
 		peopleTracker.update(colorImg);
 		#endif
-
-		/*
-		//iterate through the people
-		for(int i = 0; i < peopleTracker.totalPeople(); i++){
-			ofxTSPSPerson* p = peopleTracker.personAtIndex(i);
-		}
-		 */
-		
 	}
-	
-	
-	t = ((double)cv::getTickCount() - t)/cv::getTickFrequency(); // DEBUG!
-	//cout << "People tracker took " << t << endl; // DEBUG
-	
-	
-	
 }
 
 //delegate methods for people entering and exiting
@@ -138,20 +112,7 @@ void laserinneApp::draw(){
 	ofSetHexColor(0xffffff);
 	
 	ofPushStyle();
-
-	double t = (double)cv::getTickCount(); // DEBUG!
-
-	
-	
-	
 	peopleTracker.draw();
-
-	
-	
-	t = ((double)cv::getTickCount() - t)/cv::getTickFrequency(); // DEBUG!
-	//cout << "People tracker draw took " << t << endl; // DEBUG
-	
-	
 	ofPopStyle();
 }
 
@@ -161,7 +122,9 @@ void laserinneApp::keyPressed  (int key){
 
 	switch (key){
 		case OF_KEY_ESC: {
-			exit();
+			peopleTracker.exit();
+			pointGrey.close();
+			ofExit(0);
 		}break;
 		case ' ':{
 			peopleTracker.relearnBackground();

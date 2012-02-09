@@ -826,7 +826,7 @@ void ofxLabGui::saveSettings(string xmlFile){
 
         settings.saveFile(xmlName);
     }
-	cout<<"SAVING "<<xmlFile;
+	std::cout<<"SAVING "<<xmlFile<<std::endl;
     settings.saveFile(xmlFile);
     currentXmlFile = xmlFile;
     usingXml = true;

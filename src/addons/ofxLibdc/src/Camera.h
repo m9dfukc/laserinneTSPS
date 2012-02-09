@@ -21,63 +21,96 @@ public:
 	void setFormat7(bool useFormat7, int mode = 0);
 	void set1394b(bool use1394b);
 	void setBlocking(bool blocking);
-	void setBayerMode(dc1394color_filter_t bayerMode); 
+	void setBayerMode(dc1394color_filter_t bayerMode);
+	void setFrameRate(float frameRate);
+	
+	ofImageType getImageType() const;
+	bool getBlocking() const;
+	unsigned int getWidth() const;
+	unsigned int getHeight() const;
+	float getFrameRate() const;
 	
 	virtual bool setup(int cameraNumber = 0);
 	virtual bool setup(string cameraGuid);
 	virtual ~Camera();
 	
-	// post-setup settings
-	void setBrightness(unsigned int brightness);
-	void setGamma(unsigned int gamma);
-	void setGain(unsigned int gain);
-	void setExposure(unsigned int exposure);
-	void setShutter(unsigned int shutter);
-	void setFeature(dc1394feature_t feature, unsigned int value);
+	// post-setup settings	
 	
-	void setBrightnessNorm(float brightness);
-	void setGammaNorm(float gamma);
-	void setGainNorm(float gain);
-	void setExposureNorm(float exposure);
-	void setShutterNorm(float shutter);
-	void setFeatureNorm(dc1394feature_t feature, float value);
+	// normalized values
+	void setBrightness(float brightness);
+	void setGamma(float gamma);
+	void setGain(float gain);
+	void setExposure(float exposure);
+	void setShutter(float shutter);
+	void setFeature(dc1394feature_t feature, float value);
 	
-	void getBrightnessRange(unsigned int* min, unsigned int* max) const;
-	void getGammaRange(unsigned int* min, unsigned int* max) const;
-	void getGainRange(unsigned int* min, unsigned int* max) const;
-	void getExposureRange(unsigned int* min, unsigned int* max) const;
-	void getShutterRange(unsigned int* min, unsigned int* max) const;
-	void getFeatureRange(dc1394feature_t feature, unsigned int* min, unsigned int* max) const;
+	// absolute values
+	void setBrightnessAbs(float brightness);
+	void setGammaAbs(float gamma);
+	void setGainAbs(float gain);
+	void setExposureAbs(float exposure);
+	void setShutterAbs(float shutter); // in seconds
+	void setFeatureAbs(dc1394feature_t feature, float value);
 	
-	unsigned int getBrightness();
-	unsigned int getGamma();
-	unsigned int getGain();
-	unsigned int getExposure();
-	unsigned int getShutter();
-	unsigned int getFeature(dc1394feature_t feature);
+	// raw values
+	void setBrightnessRaw(unsigned int brightness);
+	void setGammaRaw(unsigned int gamma);
+	void setGainRaw(unsigned int gain);
+	void setExposureRaw(unsigned int exposure);
+	void setShutterRaw(unsigned int shutter);
+	void setFeatureRaw(dc1394feature_t feature, unsigned int value);
 	
-	float getBrightnessNorm();
-	float getGammaNorm();
-	float getGainNorm();
-	float getExposureNorm();
-	float getShutterNorm();
-	float getFeatureNorm(dc1394feature_t feature);
+	// normalized values
+	float getBrightness() const;
+	float getGamma() const;
+	float getGain() const;
+	float getExposure() const;
+	float getShutter() const;
+	float getFeature(dc1394feature_t feature) const;
 	
-	float getShutterAbs() const;
+	// absolute values
+	float getBrightnessAbs() const;
+	float getGammaAbs() const;
+	float getGainAbs() const;
+	float getExposureAbs() const;
+	float getShutterAbs() const; // in seconds
 	float getFeatureAbs(dc1394feature_t feature) const;
 	
-	void grabStill(ofImage& img);
+	// raw values
+	unsigned int getBrightnessRaw() const;
+	unsigned int getGammaRaw() const;
+	unsigned int getGainRaw() const;
+	unsigned int getExposureRaw() const;
+	unsigned int getShutterRaw() const;
+	unsigned int getFeatureRaw(dc1394feature_t feature) const;
+	
+	// raw value ranges
+	void getBrightnessRawRange(unsigned int* min, unsigned int* max) const;
+	void getGammaRawRange(unsigned int* min, unsigned int* max) const;
+	void getGainRawRange(unsigned int* min, unsigned int* max) const;
+	void getExposureRawRange(unsigned int* min, unsigned int* max) const;
+	void getShutterRawRange(unsigned int* min, unsigned int* max) const;
+	void getFeatureRawRange(dc1394feature_t feature, unsigned int* min, unsigned int* max) const;
+	
+	// abs value ranges
+	void getBrightnessAbsRange(float* min, float* max) const;
+	void getGammaAbsRange(float* min, float* max) const;
+	void getGainAbsRange(float* min, float* max) const;
+	void getExposureAbsRange(float* min, float* max) const;
+	void getShutterAbsRange(float* min, float* max) const; // in seconds
+	void getFeatureAbsRange(dc1394feature_t feature, float* min, float* max) const;
+	
+	void printFeatures() const;
+	
+	// image grabbing
+	
+	bool grabStill(ofImage& img);
 	bool grabVideo(ofImage& img, bool dropFrames = true);
 	
 	void flushBuffer();
-		
-	unsigned int getWidth() const;
-	unsigned int getHeight() const;
-	ofImageType getImageType() const;
-	void printFeatures() const;
 	
 	dc1394camera_t* getLibdcCamera();
-	bool ready() const;
+	bool isReady() const;
 
 protected:
 	static dc1394_t* libdcContext;
@@ -93,6 +126,7 @@ protected:
 	dc1394capture_policy_t capturePolicy;
 	unsigned int width, height, left, top;
 	ofImageType imageType;
+	float frameRate;
 	
 	bool useBayer;
 	dc1394color_filter_t bayerMode;
@@ -100,6 +134,7 @@ protected:
 	bool useFormat7;
 	int format7Mode;
 	bool use1394b;
+	bool ready;
 	
 	bool grabFrame(ofImage& img);
 	bool initCamera(uint64_t cameraGuid);
@@ -109,8 +144,10 @@ protected:
 	void quantizePosition();
 	
 	void setTransmit(bool transmit);
+	unsigned int getSourceDepth() const;
 	
-	string makeString(int name);
+	static string makeString(int name);
+	static float makeFloat(int name);
 };
 
 }

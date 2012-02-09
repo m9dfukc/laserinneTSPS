@@ -76,6 +76,11 @@ void ofxTSPSPeopleTracker::setup(int w, int h)
 	//updateSettings();
 }
 
+void ofxTSPSPeopleTracker::exit() 
+{
+	gui.exit();
+}
+
 void ofxTSPSPeopleTracker::setupOsc(string ip, int port)
 {
 	ofLog(OF_LOG_VERBOSE, "SEND OSC");
